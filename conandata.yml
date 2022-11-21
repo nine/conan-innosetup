@@ -1,0 +1,9 @@
+sources:
+  "6.0.5-3":
+    url: "https://github.com/portapps/innosetup-portable/releases/download/6.0.5-3/innosetup-portable-win32-6.0.5-3.7z"
+    filename: "innosetup-portable-win32-6.0.5-3.7z"
+    sha256: "7856b32264cf9184540c158de2f0a2575a939e13493770828db09704a6708792"
+  "6.2.0-5":
+    url: "https://github.com/portapps/innosetup-portable/releases/download/6.2.0-5/innosetup-portable-win32-6.2.0-5.7z"
+    filename: "innosetup-portable-win32-6.2.0-5.7z"
+    sha256: "6f38a5c4cc46e72a4376c10a1a1d2137ad2b57a4af77dc093501fb5adea1a6e3"

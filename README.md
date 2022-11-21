@@ -9,7 +9,7 @@ This conan package provides [Inno Setup Compiler](https://jrsoftware.org/isinfo.
 Add a `conanfile.txt` to your project:
 ```
 [requires]
-innosetup/6.0.5-3@ci/stable 
+innosetup/6.2.0-5@user/channel
 
 [generators]
 virtualenv
@@ -25,7 +25,7 @@ iscc path/to/innosetup_project.iss
 ### Build the conan package
 
 ```
-conan create . user/channel
+conan create . 6.2.0-5@user/channel
 ```
 
 ### Share the conan package

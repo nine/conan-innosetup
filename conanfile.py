@@ -1,30 +1,28 @@
-import os
-from conans import ConanFile, tools
-from conans.errors import ConanInvalidConfiguration
+from conan import ConanFile
+from conan.tools import files
+
+required_conan_version = ">=1.53.0"
+
 
 class InnosetupConan(ConanFile):
     name = "innosetup"
-    version = "6.0.5-3"
-    license = "MIT License"
-    url = "https://gitlab.evk.services/development-tools/conan-innosetup"
+    license = "Inno Setup License"
+    url = "https://github.com/nine/conan-innosetup"
+    homepage = "https://portapps.io/app/innosetup-portable/"
     settings = "os"
     description="innosetup-portable for MS Windows."
 
-    build_requires = "7z_installer/1.0@conan/stable"
-
-    def configure(self):
-        if self.settings.os != "Windows":
-            raise ConanInvalidConfiguration("Only windows supported for innosetup")
+    def build_requirements(self):
+        if self.settings.os == "Windows":
+            self.build_requires("7zip/19.00")
+        else:
+            self.build_requires("p7zip/16.02")
 
     def build(self):
-        innosetup_zip_name = "innosetup-portable-win32-%s.7z" % (self.version)
-        tools.download("https://github.com/portapps/innosetup-portable/releases/download/"
-                       "%s/%s" % (self.version, innosetup_zip_name), innosetup_zip_name)
-        self.output.info("Downloading innosetup: "
-                         "https://github.com/portapps/innosetup-portable/releases/download/"
-                         "/%s/%s" % (self.version, innosetup_zip_name))
-        self.run("7z x %s" % (innosetup_zip_name))
-        os.unlink(innosetup_zip_name)
+        innosetup_zip_name = self.conan_data["sources"][self.version]
+        files.download(self, **self.conan_data["sources"][self.version])
+        self.run("7z x %s" % (self.conan_data["sources"][self.version]["filename"]))
+        files.rm(self, self.conan_data["sources"][self.version]["filename"], self.build_folder)
 
     def package(self):
         self.copy("*", src="app", dst="bin", keep_path=True)
