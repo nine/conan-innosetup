@@ -1,3 +1,4 @@
+import os
 from conan import ConanFile
 from conan.tools import files
 
@@ -9,17 +10,18 @@ class InnosetupConan(ConanFile):
     license = "Inno Setup License"
     url = "https://github.com/nine/conan-innosetup"
     homepage = "https://portapps.io/app/innosetup-portable/"
-    settings = "os"
+    settings = {
+        "os": ["Windows"],
+    }
     description="innosetup-portable for MS Windows."
 
     def build_requirements(self):
-        if self.settings.os == "Windows":
+        if self.settings_build.os == "Windows":
             self.build_requires("7zip/19.00")
         else:
             self.build_requires("p7zip/16.02")
 
     def build(self):
-        innosetup_zip_name = self.conan_data["sources"][self.version]
         files.download(self, **self.conan_data["sources"][self.version])
         self.run("7z x %s" % (self.conan_data["sources"][self.version]["filename"]))
         files.rm(self, self.conan_data["sources"][self.version]["filename"], self.build_folder)

@@ -24,11 +24,17 @@ iscc path/to/innosetup_project.iss
 
 ### Build the conan package
 
+On *MS Windows* (native):
 ```
 conan create . 6.2.0-5@user/channel
 ```
 
+On GNU/Linux and other Unix variants (cross compile):
+```
+conan create --profile:host=host_profile --pofile:build=default . 6.2.0-5@user/channel
+```
+
 ### Share the conan package
 ```
-conan upload -r conan-local --all -c "innosetup/*@user/channel"
+conan upload -r <remote-repository> --all -c "innosetup/*@user/channel"
 ```
